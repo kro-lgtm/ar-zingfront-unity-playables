@@ -454,12 +454,17 @@ super_load();
   function fixOffer() {
     var cc = window.cc;
     if (!cc || !cc.director || !cc.director.getScene || !cc.Label) return;
-    var scene = cc.director.getScene();
+    window.__arsEnd = false; var scene = cc.director.getScene();
     if (!scene) return;
     function walk(n) {
       if (!n || !n.getComponent) return;
       var lab = null;
       try { lab = n.getComponent(cc.Label); } catch (eLab) { lab = null; }
+      if (lab && lab.string && String(lab.string).indexOf("REGISTRATE") >= 0) {
+        var shown = true;
+        try { if (n.activeInHierarchy === false) shown = false; } catch (eAct) {}
+        if (shown) window.__arsEnd = true;
+      }
       if (lab && !lab.__offerFixed && lab.string) {
         var s = String(lab.string);
         if (s.indexOf('550%') >= 0 || s.indexOf('GIROS') >= 0) {
@@ -486,6 +491,19 @@ super_load();
       for (i = 0; i < ch.length; i++) walk(ch[i]);
     }
     walk(scene);
+  }
+  if (!window.__arsTap) {
+    window.__arsTap = true;
+    document.addEventListener("pointerup", function (ev) {
+      if (!window.__arsEnd) return;
+      if ((ev.clientY || 0) / (window.innerHeight || 1) < 0.45) return;
+      try {
+        var s = window.STORE_URL || {};
+        var u = s.android || s.ios || "";
+        if (window.mraid && typeof mraid.open === "function" && u) { mraid.open(u); return; }
+      } catch (eOpen) {}
+      try { if (window.PLAYABLE_CTA) window.PLAYABLE_CTA(); } catch (eCta) {}
+    }, true);
   }
   setInterval(fixOffer, 400);
 })();

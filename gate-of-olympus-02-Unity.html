@@ -1838,7 +1838,10 @@ const cols = [[hc[0], UI.balance, fmtMoney(this.balance)], [hc[1], UI.bet, fmtMo
 const f = L.font; ctx.shadowColor = "rgba(0,0,0,.7)"; ctx.shadowBlur = 3; ctx.lineJoin = "round"; ctx.strokeStyle = "rgba(10,14,60,0.9)";
 for (const [x, lab, val] of cols) {
 ctx.font = `700 ${f * 0.8}px Arial, Helvetica, MWMLocA, MWMLocB, sans-serif`; ctx.lineWidth = f * 0.22; ctx.strokeText(lab, x, L.hudY - f * 0.85); ctx.fillStyle = "#ffd86b"; ctx.fillText(lab, x, L.hudY - f * 0.85);
-ctx.font = `700 ${f * 1.25}px RubikBlack, MWMLocA, MWMLocB, "Arial Black", sans-serif`; ctx.lineWidth = f * 0.3;
+var fit = f * 1.25, maxW = (L.W || 1) * 0.28, guard = 0;
+ctx.font = `700 ${fit}px RubikBlack, MWMLocA, MWMLocB, "Arial Black", sans-serif`;
+while (guard < 7 && ctx.measureText(val).width > maxW && fit > f * 0.58) { guard++; fit *= 0.88; ctx.font = `700 ${fit}px RubikBlack, MWMLocA, MWMLocB, "Arial Black", sans-serif`; }
+ctx.lineWidth = Math.max(1, fit * 0.24);
 money(ctx, val, () => { ctx.strokeText(val, x, L.hudY + f * 0.35); ctx.fillStyle = "#fff"; ctx.fillText(val, x, L.hudY + f * 0.35); });
 }
 ctx.shadowBlur = 0; ctx.textBaseline = "alphabetic";

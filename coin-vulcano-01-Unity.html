@@ -594,7 +594,7 @@ hint: { idleSeconds: 1.2, text: "TIK OM TE DRAAIEN" },
 disclaimer: "21+ - Alleen voor entertainment. Bedragen zijn illustratief en niet typisch. Speel verantwoord.",
 };
 </script>
-<script>window.MWM_L10N = {"lang": "nl", "dir": "ltr", "geo": "BEL", "product": "MRSP", "age": 21, "money": {"dec": 2, "prefix": "ARS ", "suffix": "", "group": ".", "dsep": ","}, "copy": {"tap_to_spin": "TIK OM TE DRAAIEN", "spin": "DRAAI", "start": "START", "balance": "TEGOED", "bet": "INZET", "win": "WINST", "congrats": "GEFELICITEERD!", "you_won": "Je wint", "free_spins": "en 100 extra free spins wachten op je", "offer_expires": "Aanbod verloopt over", "collect": "INCASSEREN", "legal": "21+ - Alleen voor entertainment. Bedragen zijn illustratief en niet typisch. Speel verantwoord.", "win_prefix": "WINST"}};</script>
+<script>window.MWM_L10N = {"lang": "nl", "dir": "ltr", "geo": "BEL", "product": "MRSP", "age": 21, "money": {"dec": 2, "prefix": "ARS ", "suffix": "", "group": ".", "dsep": ","}, "copy": {"tap_to_spin": "TIK OM TE DRAAIEN", "spin": "DRAAI", "start": "START", "balance": "TEGOED", "bet": "INZET", "win": "WINST", "congrats": "PAQUETE DE BIENVENIDA", "you_won": "550% EN DEPOSITOS", "free_spins": "+330 GIROS GRATIS", "offer_expires": "LA OFERTA VENCE EN", "collect": "REGISTRATE", "legal": "21+ - Alleen voor entertainment. Bedragen zijn illustratief en niet typisch. Speel verantwoord.", "win_prefix": "WINST"}};</script>
 <script>
 // Layout authored in PL2 Layout Lab (compact export, no sprites) — the source of truth for element placement.
 // Re-export from the lab and paste here. app.js resolves size units (dp / %w / %h) and screen anchors per orientation;
@@ -1937,7 +1937,10 @@ const cols = [[hc[0], UI.balance, fmtMoney(this.balance)], [hc[1], UI.bet, fmtMo
 const f = L.font; ctx.shadowColor = "rgba(0,0,0,.7)"; ctx.shadowBlur = 3; ctx.lineJoin = "round"; ctx.strokeStyle = "rgba(10,14,60,0.9)";
 for (const [x, lab, val] of cols) {
 ctx.font = `700 ${f * 0.8}px Arial, Helvetica, MWMLocA, MWMLocB, sans-serif`; ctx.lineWidth = f * 0.22; ctx.strokeText(lab, x, L.hudY - f * 0.85); ctx.fillStyle = "#ffd86b"; ctx.fillText(lab, x, L.hudY - f * 0.85);
-ctx.font = `700 ${f * 1.25}px RubikBlack, MWMLocA, MWMLocB, "Arial Black", sans-serif`; ctx.lineWidth = f * 0.3;
+var fit = f * 1.25, maxW = (L.W || 1) * 0.28, guard = 0;
+ctx.font = `700 ${fit}px RubikBlack, MWMLocA, MWMLocB, "Arial Black", sans-serif`;
+while (guard < 7 && ctx.measureText(val).width > maxW && fit > f * 0.58) { guard++; fit *= 0.88; ctx.font = `700 ${fit}px RubikBlack, MWMLocA, MWMLocB, "Arial Black", sans-serif`; }
+ctx.lineWidth = Math.max(1, fit * 0.24);
 money(ctx, val, () => { ctx.strokeText(val, x, L.hudY + f * 0.35); ctx.fillStyle = "#fff"; ctx.fillText(val, x, L.hudY + f * 0.35); });
 }
 ctx.shadowBlur = 0; ctx.textBaseline = "alphabetic";
