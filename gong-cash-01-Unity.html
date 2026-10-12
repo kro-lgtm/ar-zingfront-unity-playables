@@ -477,8 +477,8 @@ Grid 5x6. Flow:
 2) popup "you won N free spins" -> START
 3) spin -> three 2x2 bonus clusters merge into 4X tiles, lock
 4) spin -> one 2x2 (4X) + one 3x3 (9X) merge, lock
-5) spin -> remaining cells land bonus -> flip to EUR values -> pulse
-6) EUR values fly up one by one (base sum), then each multiplier flies up
+5) spin -> remaining cells land bonus -> flip to ARS values -> pulse
+6) ARS values fly up one by one (base sum), then each multiplier flies up
 and ADDS mult * base (never multiplies the running total)
 7) total flies to center -> final popup + 30:00 countdown + COLLECT NOW
 =================================================================== */
@@ -999,7 +999,7 @@ round1: [ {r:0,c:0,s:2}, {r:0,c:2,s:2}, {r:2,c:3,s:2} ],
 round2: [ {r:4,c:3,s:2}, {r:3,c:0,s:3} ],
 // stage 4: cash values dropped on the remaining cells
 cashPool: [5, 8, 10, 12, 15, 18, 20, 25, 30],
-currency: "R$",
+currency: "ARS",
 // timings (ms)
 spinDur: 900,
 spinStagger: 70,
@@ -1090,7 +1090,7 @@ const mainBtn = $("#mainBtn"), popup = $("#popup");
 const pTitle = $("#pTitle"), pBody = $("#pBody"), pTimer = $("#pTimer"), pTimerVal = $("#pTimerVal");
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 const rnd  = a => a[(Math.random() * a.length) | 0];
-const L = {"lang": "es-AR", "brand": "", "pre": "ARS ", "post": "", "scale": 1, "dec": 2, "gsep": ".", "dsep": ",", "freeSpins": "GIROS GRATIS", "multiplier": "MULTIPLICADOR", "totalWin": "GANANCIA TOTAL", "btn": {"spin": "GIRAR", "start": "JUGAR", "collect": "REGISTRATE"}, "popTitle": "PAQUETE DE BIENVENIDA", "fsBody": "Ganaste <b>{N}</b> giros gratis", "finalBody": "550% EN DEPOSITOS +330 GIROS GRATIS", "timer": "LA OFERTA VENCE EN", "soundOn": "Silenciar", "soundOff": "Activar sonido"};
+const L = {"lang": "es-AR", "brand": "", "pre": "ARS ", "post": "", "scale": 220, "dec": 2, "gsep": ".", "dsep": ",", "freeSpins": "GIROS GRATIS", "multiplier": "MULTIPLICADOR", "totalWin": "GANANCIA TOTAL", "btn": {"spin": "GIRAR", "start": "JUGAR", "collect": "REGISTRATE"}, "popTitle": "PAQUETE DE BIENVENIDA", "fsBody": "Ganaste <b>{N}</b> giros gratis", "finalBody": "550% EN DEPOSITOS +330 GIROS GRATIS", "timer": "LA OFERTA VENCE EN", "soundOn": "Silenciar", "soundOff": "Activar sonido"};
 function NUM(v){
 var n = Math.round(Math.abs(v) * L.scale * Math.pow(10, L.dec));
 var s = String(n); while (s.length < L.dec + 1) s = "0" + s;
@@ -1237,8 +1237,8 @@ return {h: "", c: blur ? s.c + " blur" : s.c};
 };
 const fsSym      = v => ({h: '<span class="numOver">+' + v + '<i>FS</i></span>', c: "fs"});
 const S30_KING_CASH = {"enabled":true,"revealRounds":[[{"r":2,"c":1,"value":5}],[{"r":1,"c":4,"value":10},{"r":2,"c":2,"value":20}],[{"r":0,"c":4,"value":25},{"r":2,"c":0,"value":5}]]};
-const kingCashSym = v => ({h: '<span class="numOver">' + CFG.currency + v + '</span>', c: "cash king-cash king-cash-" + v});
-const cashSym = v => S30_KING_CASH.enabled ? kingCashSym(v) : ({h: '<span class="numOver">' + CFG.currency + v + '</span>', c: "cash"});
+const kingCashSym = v => ({h: '<span class="numOver">' + ("ARS " + (v * 220)) + '</span>', c: "cash king-cash king-cash-" + v});
+const cashSym = v => S30_KING_CASH.enabled ? kingCashSym(v) : ({h: '<span class="numOver">' + ("ARS " + (v * 220)) + '</span>', c: "cash"});
 function revealKingCash(round){
 const entries = round.map(entry => {
 const cell = S.cells[entry.r] && S.cells[entry.r][entry.c];

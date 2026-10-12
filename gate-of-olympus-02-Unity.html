@@ -539,12 +539,12 @@ background: linear-gradient(#ffe680, #ffb400 52%, #ff6a00 53%, #ff9a1a); box-sha
 window.MWM_SCENARIO = {
 id: "olympus-grid20",
 currency: "ARS",
-bet: 0.3,
-balance: 20.0,
+bet: 390,
+balance: 26000,
 spins: [
 { reels: ["N", "N", "N"], win: 0,     presentation: "none"   },                  // 1. nothing
-{ reels: ["7", "N", "N"], win: 1,     presentation: "small"  },                  // 2. one seven, small win (1x)
-{ reels: ["7", "7", "7"], win: 10000, presentation: "sevens", feature: "grid" }, // 3. three sevens -> 20-machine grid
+{ reels: ["7", "N", "N"], win: 1300,     presentation: "small"  },                  // 2. one seven, small win (1x)
+{ reels: ["7", "7", "7"], win: 13000000, presentation: "sevens", feature: "grid" }, // 3. three sevens -> 20-machine grid
 ],
 // Third reel goes into slow "attention" mode when the first two reels both show a seven.
 attention: { enabled: true, duration: 0.6 }, // slow-tick time on the third reel before it brakes (≈2 symbols in total)
@@ -574,7 +574,7 @@ bonusSpins: 100,                                        // 0 hides the line
 bonusText: "e {n} giri gratis extra ti aspettano", // {n} = bonusSpins
 offerLabel: "L’offerta scade tra",
 offerSeconds: 30 * 60,                                  // countdown start (mm:ss), deadline-based so it survives tab throttling
-countSeconds: 2.2,                                      // the won amount rolls up from €00 000 to the final value
+countSeconds: 2.2,                                      // the won amount rolls up from ARS00 000 to the final value
 cta: "RITIRA",
 clickUrl: "",
 multiplier: 120000,             // fallback only — the end card shows the actual final win
@@ -592,7 +592,7 @@ hint: { idleSeconds: 1.2, text: "TOCCA PER GIRARE" },
 disclaimer: "18+ - Solo a scopo di intrattenimento. Gli importi sono illustrativi e non tipici. Gioca responsabilmente.",
 };
 </script>
-<script>window.MWM_L10N = {"lang": "it", "dir": "ltr", "geo": "ITA", "product": "MRSP", "age": 18, "money": {"dec": 2, "prefix": "", "suffix": " €", "group": ".", "dsep": ","}, "copy": {"tap_to_spin": "TOCCA PER GIRARE", "spin": "GIRA", "start": "INIZIA", "balance": "SALDO", "bet": "PUNTATA", "win": "VINCITA", "congrats": "CONGRATULAZIONI!", "you_won": "Hai vinto", "free_spins": "e 100 giri gratis extra ti aspettano", "offer_expires": "L’offerta scade tra", "collect": "RITIRA", "legal": "18+ - Solo a scopo di intrattenimento. Gli importi sono illustrativi e non tipici. Gioca responsabilmente.", "win_prefix": "VINCITA"}};</script>
+<script>window.MWM_L10N = {"lang": "it", "dir": "ltr", "geo": "ITA", "product": "MRSP", "age": 18, "money": {"dec": 2, "prefix": "", "suffix": " ARS", "group": ".", "dsep": ","}, "copy": {"tap_to_spin": "TOCCA PER GIRARE", "spin": "GIRA", "start": "INIZIA", "balance": "SALDO", "bet": "PUNTATA", "win": "VINCITA", "congrats": "CONGRATULAZIONI!", "you_won": "Hai vinto", "free_spins": "e 100 giri gratis extra ti aspettano", "offer_expires": "L’offerta scade tra", "collect": "RITIRA", "legal": "18+ - Solo a scopo di intrattenimento. Gli importi sono illustrativi e non tipici. Gioca responsabilmente.", "win_prefix": "VINCITA"}};</script>
 <script>
 // Layout authored in PL2 Layout Lab (compact export, no sprites) — the source of truth for element placement.
 // Re-export from the lab and paste here. app.js resolves size units (dp / %w / %h) and screen anchors per orientation;
@@ -740,10 +740,10 @@ const t = document.getElementById("ctaTimer"); if (E.offerSeconds > 0) { t.hidde
 document.getElementById("ctaBtn").textContent = E.cta || LC.collect;
 this.el.classList.add("show"); requestAnimationFrame(() => this.el.classList.add("on"));
 },
-// "€36 000" (+ ".50" if there are cents) rendered from the digits_gold sprite sheet; the € sign and the dot are drawn in the
+// "ARS36 000" (+ ".50" if there are cents) rendered from the digits_gold sprite sheet; the ARS sign and the dot are drawn in the
 // same gold/plum style because the sheet only has 0-9 x k m. Returns a canvas sized for the modal via --k.
 // Glyph style sampled from the "1" sprite of digits_gold (its stem is a clean vertical slice): per-row face gradient,
-// outline colour and the plum extrusion height. Used to paint characters the sheet lacks (€, the cents dot) so they match.
+// outline colour and the plum extrusion height. Used to paint characters the sheet lacks (ARS, the cents dot) so they match.
 glyphStyle() {
 if (this._gs) return this._gs;
 const d = manifest.digits.digits_gold, f = d.frames["1"], sheet = IMG.digits_gold;
@@ -771,9 +771,9 @@ ctx.fillStyle = G.plum; for (let e = ext; e > 0; e -= 1) ctx.fillText(ch, x, bas
 const g = ctx.createLinearGradient(0, baseline - capH, 0, baseline); for (const [o, c] of G.stops) g.addColorStop(o, c); ctx.fillStyle = g; ctx.fillText(ch, x, baseline);
 return w;
 },
-// "€36 000" (+ ".50" if there are cents) from the digits_gold sprite sheet; € and the dot are painted with glyphText.
+// "ARS36 000" (+ ".50" if there are cents) from the digits_gold sprite sheet; ARS and the dot are painted with glyphText.
 // `tmpl` = the final amount's whole part as formatted by fmtMult ("36 000"): the current value is left-padded with zeros
-// to the same digit count and spaced identically, so the roll-up shows "€00 000" → "€36 000" with a fixed glyph count.
+// to the same digit count and spaced identically, so the roll-up shows "ARS00 000" → "ARS36 000" with a fixed glyph count.
 // `target` reuses one output canvas (fixed size, content centred) so the animation does not allocate per frame.
 amountCanvas(amount, o = {}) {
 const H = 144, pad = 16, whole = Math.floor(amount + 1e-9), cents = Math.round((amount - whole) * 100);
@@ -807,7 +807,7 @@ pieces.push(drawNumber);
 if (M.suffix) pieces.push((X) => this.glyphText(ctx, M.suffix.trim(), X, base, capH));
 if (mdir === "rtl") pieces.reverse();
 let x = pad;
-// affix <-> number gap: tight for a glued symbol (£ / ₩ / A$ / €), wide where the locale spaces it
+// affix <-> number gap: tight for a glued symbol (£ / ₩ / A$ / ARS), wide where the locale spaces it
 // (an NBSP in the affix) — glyphText paints outline + extrusion wider than its advance.
 const spaced = /\u00a0/.test(M.prefix + M.suffix);
 pieces.forEach((draw, i) => { if (i) x += H * (spaced ? 0.16 : 0.06); x += draw(x); });
