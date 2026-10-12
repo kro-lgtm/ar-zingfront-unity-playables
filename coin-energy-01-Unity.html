@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es-AR">
-<head><script src="mraid.js"></script>
+<head><meta name="viewport" content="width=device-width, initial-scale=1"><script src="mraid.js"></script>
 <script>
 (function (global) {
 'use strict';
@@ -59,7 +59,15 @@ try {
 global.mraid.addEventListener('sizeChange', function () {
 callHook('PLAYABLE_RESIZE');
 });
+global.mraid.addEventListener('orientationChange', function () {
+callHook('PLAYABLE_RESIZE');
+});
 } catch (eSize) {}
+try {
+global.addEventListener('resize', function () {
+callHook('PLAYABLE_RESIZE');
+});
+} catch (eResize) {}
 }
 try {
 if (typeof global.mraid.isViewable !== 'function' || global.mraid.isViewable()) {

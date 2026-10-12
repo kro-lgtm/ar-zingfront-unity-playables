@@ -520,7 +520,7 @@ background: linear-gradient(#ffe680, #ffb400 52%, #ff6a00 53%, #ff9a1a); box-sha
 <h1 id="ctaTitle">PAQUETE DE BIENVENIDA</h1><div class="eyebrow" id="ctaWon">550% EN DEPOSITOS</div>
 <div class="amount" id="ctaAmount">ARS 0,00</div>
 <div class="bonus" id="ctaBonus">+330 GIROS GRATIS</div>
-<div class="timer" id="ctaTimer"><span class="lbl" id="ctaOfferLabel">LA OFERTA VENCE EN</span><span id="ctaTimerVal">30:00</span></div>
+<div class="timer" id="ctaTimer"><span class="lbl" id="ctaOfferLabel">LA OFERTA VENCE EN</span><span id="ctaTimerVal">00:30</span></div>
 </div>
 <button class="collect" id="ctaBtn">REGISTRATE</button>
 </div>
@@ -568,14 +568,14 @@ superSpinHint: "",               // optional line under the button ("" = none)
 // free-spins offer line and a fake "offer expires" countdown (pure FOMO, nothing happens at 00:00), COLLECT button.
 // Only the COLLECT button fires the click-through; the modal and the dimmed stage are inert. UNITY target — see Game.cta().
 endCard: {
-title: "CONGRATULAZIONI!",
-wonLabel: "Hai vinto",
+title: "PAQUETE DE BIENVENIDA",
+wonLabel: "550% EN DEPOSITOS",
 bonusSpins: 100,                                        // 0 hides the line
-bonusText: "e {n} giri gratis extra ti aspettano", // {n} = bonusSpins
-offerLabel: "L’offerta scade tra",
-offerSeconds: 30 * 60,                                  // countdown start (mm:ss), deadline-based so it survives tab throttling
+bonusText: "+330 GIROS GRATIS", // {n} = bonusSpins
+offerLabel: "LA OFERTA VENCE EN",
+offerSeconds: 30,                                  // countdown start (mm:ss), deadline-based so it survives tab throttling
 countSeconds: 2.2,                                      // the won amount rolls up from ARS00 000 to the final value
-cta: "RITIRA",
+cta: "REGISTRATE",
 clickUrl: "",
 multiplier: 120000,             // fallback only — the end card shows the actual final win
 autoShowAfterLastSpin: true,
